@@ -1,0 +1,18 @@
+---
+import { getEntry } from 'astro:content'
+import ArticleLayout from '@/layouts/ArticleLayout.astro'
+
+const { slug } = Astro.params
+
+if (!slug) throw new Error('Slug is required')
+
+const entry = await getEntry('news', slug)
+
+if (!entry) return Astro.redirect('/404')
+
+const { Content } = await entry.render()
+---
+
+<ArticleLayout {...entry.data}>
+  <Content />
+</ArticleLayout>

@@ -1,0 +1,65 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+
+import { SignIn } from 'auth-astro/components'
+
+const { session } = Astro.locals
+
+if (session) {
+  return Astro.redirect('/user')
+}
+---
+
+<BaseLayout>
+  <section class="box-mold">
+    <div class="title icon-text-align">
+      <svg viewBox="0 0 16 16">
+        <path
+          d="M11.02 3.77l.01-.01.99.99V2.5l-.5-.5h-9l-.51.5v.493L2 3v10.29l.36.46 5 1.72L8 15v-1h3.52l.5-.5v-2.25l-1 1V13H8V4.71l-.33-.46L4.036 3h6.984v.77zM7 14.28l-4-1.34V3.72l4 1.34v9.22zm3.09-6.75h4.97v1h-4.93l1.59 1.6-.71.7-2.47-2.46v-.71l2.49-2.48.7.7-1.64 1.65z"
+        ></path>
+      </svg>
+      <h1>进门看看？</h1>
+    </div>
+    <SignIn provider="blessing-skin" class="btn icon-text-align">
+      <span>通过 Blessing Skin 登录</span>
+    </SignIn>
+  </section>
+</BaseLayout>
+
+<style>
+  section {
+    margin: 1rem 0;
+    place-items: center;
+  }
+
+  .title {
+    margin: 1.5rem 0;
+    color: var(--color-text-bland);
+    font-size: 1.3rem;
+    font-weight: 600;
+
+    svg {
+      stroke-width: 0.02rem;
+      font-size: 2rem;
+    }
+  }
+
+  .btn {
+    margin: 1rem 0;
+    cursor: pointer;
+    padding: 0.2rem 0.7rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border: 0.1rem solid var(--color-text);
+    border-radius: 0.5rem;
+    transition: background 0.3s ease-in-out;
+
+    svg {
+      stroke-width: 0.02rem;
+    }
+
+    &:hover {
+      background: var(--color-background-transparent);
+    }
+  }
+</style>

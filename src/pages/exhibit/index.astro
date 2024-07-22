@@ -1,0 +1,21 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getCollection } from 'astro:content'
+
+const exhibit = await getCollection('exhibit')
+---
+
+<BaseLayout>
+  <ul>
+    {
+      exhibit.map(post => (
+        <li>
+          <a href={`/exhibit/${post.slug}/`}>
+            <img src={post.data.headImage} alt="" />
+            <h4>{post.data.title}</h4>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

@@ -1,0 +1,224 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+export type NavConf = {
+  text: string
+  name: string
+  path: string
+}[]
+
+interface Props extends HTMLAttributes<'div'> {
+  nav: NavConf
+}
+
+const { nav, class: className, ...props } = Astro.props
+
+const { pathname } = Astro.url
+---
+
+<script>
+  customElements.define(
+    'nav-bar',
+    class extends HTMLElement {
+      constructor() {
+        super()
+        this.querySelector('.burger')?.addEventListener('click', () => this.classList.toggle('showed'))
+      }
+    },
+  )
+</script>
+
+<nav-bar class={className} {...props}>
+  <nav>
+    {
+      nav.map((item, index) => (
+        <a
+          href={item.path}
+          style={`--order: ${index + 1}`}
+          class:list={{
+            active: item.path === pathname || item.path === '/' + pathname.match(/[^/]+/g)?.[0],
+          }}
+        >
+          {item.text}
+        </a>
+      ))
+    }
+  </nav>
+  <div class="burger">
+    <i></i>
+    <i></i>
+    <i></i>
+  </div>
+</nav-bar>
+
+<style>
+  nav-bar {
+    & nav {
+      display: flex;
+      place-items: center;
+      justify-content: space-between;
+      gap: 5vh 0.5rem;
+
+      & a {
+        display: block;
+        position: relative;
+        white-space: pre;
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 0.2rem;
+        text-indent: 0.2rem;
+        text-align: center;
+
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          height: 0.2rem;
+          width: 0%;
+          left: 50%;
+          bottom: -0.5rem;
+          border-radius: 0.2rem;
+          transition: all 0.3s ease-in-out;
+        }
+
+        &:is(:hover, .active)::after {
+          left: 10%;
+          width: 80%;
+          background: linear-gradient(to right, var(--color-minor), var(--color-main), var(--color-minor));
+        }
+
+        &:nth-of-type(3n + 1)::after {
+          --color-main: var(--color-1-mute);
+          --color-minor: var(--color-1-soft);
+        }
+
+        &:nth-of-type(3n + 2)::after {
+          --color-main: var(--color-2-mute);
+          --color-minor: var(--color-2-soft);
+        }
+
+        &:nth-of-type(3n)::after {
+          --color-main: var(--color-3-mute);
+          --color-minor: var(--color-3-soft);
+        }
+      }
+    }
+
+    & .burger {
+      display: none;
+    }
+
+    @media screen and (max-width: 960px) {
+      & nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+
+        width: max(40vw, 16rem);
+        max-width: 60vw;
+        height: 100vh;
+
+        background: var(--color-background-transparent);
+        backdrop-filter: blur(1rem);
+
+        flex-direction: column;
+        justify-content: center;
+
+        transition: 0.8s ease-in-out;
+
+        transform: translateX(100%);
+
+        & a {
+          width: 70%;
+          text-align: right;
+          font-size: 1.1rem;
+
+          &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            height: 0;
+            width: 0.3rem;
+            top: 50%;
+            border-radius: 0.3rem;
+            background: var(--color-text);
+            transition: 0.3s ease-in-out;
+          }
+
+          &:is(:hover, .active)::before {
+            top: 10%;
+            height: 80%;
+          }
+
+          &::after {
+            display: none;
+          }
+
+          .showed & {
+            opacity: 0;
+            transform: translateX(1.5rem);
+            animation: 0.3s ease-in-out calc(var(--order) * 0.1s + 0.3s) forwards slideIn;
+          }
+        }
+
+        .showed & {
+          box-shadow: 0 0 0.2rem 0.2rem var(--color-background-transparent);
+          transform: translateX(0);
+        }
+      }
+
+      & .burger {
+        display: flex;
+        float: right;
+        flex-direction: column;
+        row-gap: 0.25rem;
+        width: 1.5rem;
+
+        & i {
+          display: block;
+          height: 0.2rem;
+          background: var(--color-text);
+
+          &:nth-child(1) {
+            transform: rotate(0) translate(0);
+            transition: 0.3s ease-in-out 0s;
+
+            .showed & {
+              transform: rotate(45deg) translate(0.25rem, 0.4rem);
+              transition: 0.3s ease-in-out 0.2s;
+            }
+          }
+
+          &:nth-child(2) {
+            opacity: 1;
+            transform: translate(0);
+            transition: 0.3s ease-in-out 0.2s;
+
+            .showed & {
+              opacity: 0;
+              transform: translateX(50%);
+              transition: 0.3s ease-in-out 0s;
+            }
+          }
+
+          &:nth-child(3) {
+            transform: rotate(0) translate(0);
+            transition: 0.3s ease-in-out 0s;
+
+            .showed & {
+              transform: rotate(-45deg) translate(0.25rem, -0.4rem);
+              transition: 0.3s ease-in-out 0.2s;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translate(0);
+    }
+  }
+</style>

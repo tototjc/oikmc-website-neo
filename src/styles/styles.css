@@ -1,0 +1,34 @@
+/* @layer theme, base, lib;
+
+@import './theme.css' layer(theme);
+
+@import './base.css' layer(base); */
+
+@import './theme.css';
+
+@import './base.css';
+
+.box-mold {
+  display: flex;
+  gap: 1rem;
+  flex-flow: column nowrap;
+  background: var(--color-background-transparent);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.flex-center {
+  display: flex;
+  place-content: center;
+  place-items: center;
+}
+
+.icon-text-align {
+  display: flex;
+  place-items: center;
+  column-gap: 0.3em;
+
+  & svg {
+    flex: 0 0 auto;
+  }
+}

@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+
+import HomeExternalLinks from '@/components/HomeExternalLinks.astro'
+import HomeHeroInfo from '@/components/HomeHeroInfo.astro'
+
+const home = {
+  text: 'Welcome to',
+  name: 'Oikoumene',
+  tagline: '一个面向所有玩家的自由Minecraft服务器',
+  image: import('@/assets/logo.png'),
+  actions: {
+    start: {
+      href: 'https://im.qq.com/',
+      text: '加入我们的QQ群',
+    },
+    bili: {
+      href: 'https://www.bilibili.com/',
+      text: '去Bilibili观看我们的宣传片',
+    },
+  },
+}
+
+const links = [
+  {
+    url: 'https://littleskin.cn',
+    name: 'LittleSkin',
+    intro: '本服使用的第三方登录站点',
+  },
+  {
+    url: 'https://docs.microsoft.com/java/openjdk/download',
+    name: 'Microsoft OpenJDK',
+    intro: '下载来自微软的JAVA环境',
+  },
+  {
+    url: 'https://oracle.com/java/technologies/downloads',
+    name: 'Oracle JDK',
+    intro: '下载来自甲骨文的JAVA环境',
+  },
+  {
+    url: 'https://uptimerobot.com',
+    name: 'Uptime Robot',
+    intro: '本服在线时间监控',
+  },
+  {
+    url: 'https://mcstatus.io',
+    name: 'Minecraft Server Status',
+    intro: '本服MOTD信息查询',
+  },
+]
+---
+
+<BaseLayout>
+  <section id="index">
+    <HomeHeroInfo {...home} />
+  </section>
+  <section id="links">
+    <HomeExternalLinks links={links} />
+  </section>
+</BaseLayout>
+
+<style>
+  section {
+    margin: 2rem 0;
+  }
+</style>

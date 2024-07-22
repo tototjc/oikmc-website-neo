@@ -1,0 +1,98 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+interface Link {
+  url: string
+  name: string
+  intro?: string
+}
+
+interface Props extends HTMLAttributes<'div'> {
+  links: Link[]
+}
+
+const { links, ...props } = Astro.props
+---
+
+<div class="content box-mold" {...props}>
+  <h6 class="title">一些有用的链接</h6>
+  <ul>
+    {
+      links.map(({ url, name, intro }) => (
+        <li>
+          <a class="icon-text-align" target="_blank" rel="noopener noreferrer" href={url}>
+            <svg viewBox="0 0 16 16">
+              <path d="M1.5 1H6v1H2v12h12v-4h1v4.5l-.5.5h-13l-.5-.5v-13l.5-.5z" />
+              <path d="M15 1.5V8h-1V2.707L7.243 9.465l-.707-.708L13.293 2H8V1h6.5l.5.5z" />
+            </svg>
+            <div>
+              <div class="name">{name}</div>
+              {intro && <div class="intro">{intro}</div>}
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .content {
+    color: var(--color-text-bland);
+
+    .title {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+      place-items: center start;
+      gap: 1rem 1.5rem;
+      padding: 0.5rem;
+
+      li a {
+        > svg {
+          font-size: 1.1rem;
+          stroke-width: 0.05rem;
+        }
+
+        > div {
+          display: flex;
+          flex-flow: column nowrap;
+          align-items: start;
+          justify-content: space-evenly;
+
+          .name {
+            position: relative;
+            font-size: 1rem;
+            font-weight: 700;
+
+            &::after {
+              content: '';
+              display: block;
+              position: absolute;
+              height: 0.1rem;
+              width: 0%;
+              left: 0;
+              bottom: -0.01rem;
+              background: var(--color-text-bland);
+              transition: width 0.3s ease-in-out;
+            }
+          }
+
+          .intro {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05rem;
+          }
+        }
+
+        &:hover .name::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+</style>

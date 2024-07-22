@@ -1,0 +1,261 @@
+---
+import type { ImageMetadata } from 'astro'
+import { Image } from 'astro:assets'
+import type { HTMLAttributes } from 'astro/types'
+
+interface Props extends HTMLAttributes<'div'> {
+  text: string
+  name: string
+  tagline: string
+  image: Promise<{ default: ImageMetadata }>
+  actions: {
+    start: {
+      href: string
+      text: string
+    }
+    bili?: {
+      href: string
+      text: string
+    }
+  }
+}
+
+const {
+  text,
+  name,
+  tagline,
+  image,
+  actions: { start, bili },
+  ...props
+} = Astro.props
+---
+
+<div class="content" {...props}>
+  <div class="hero">
+    <div>
+      <p class="text">{text}</p>
+      <h1 class="name" data-text={name}>{name}</h1>
+    </div>
+    <hr />
+    <p class="tagline">{tagline}</p>
+    <div class="actions">
+      <a target="_blank" rel="noopener noreferrer" class="start icon-text-align" href={start.href}>
+        <span>{start.text}</span>
+        <svg viewBox="0 0 16 16">
+          <path d="M9 14l5-5V8L9 3 8 4l4 4H2v1h10l-4 4 1 1z"></path>
+        </svg>
+      </a>
+      {
+        bili && (
+          <a target="_blank" rel="noopener noreferrer" class="bili" href={bili.href}>
+            {bili.text}
+          </a>
+        )
+      }
+    </div>
+  </div>
+  <div class="image flex-center">
+    <div class="shadow logo flex-center">
+      <Image src={image} alt="logo" />
+    </div>
+  </div>
+</div>
+
+<style>
+  .content {
+    display: flex;
+    flex-direction: row;
+    place-items: center;
+    gap: 2rem;
+
+    .hero,
+    .image {
+      flex: 11;
+    }
+
+    @media screen and (max-width: 960px) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  .hero {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap: 1rem;
+
+    .text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 100%;
+      letter-spacing: 0.05rem;
+      white-space: nowrap;
+    }
+
+    .name {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 100%;
+      letter-spacing: 0.15rem;
+      white-space: nowrap;
+
+      background: linear-gradient(135deg, var(--color-3-mute), var(--color-2-mute), var(--color-1-mute));
+      background-clip: text;
+      color: transparent;
+
+      &::before {
+        content: attr(data-text);
+        position: absolute;
+        z-index: -1;
+        color: transparent;
+        text-shadow: 0.1rem 0.15rem 0.3rem var(--color-text-bland);
+      }
+    }
+
+    hr {
+      width: 100%;
+      height: 0.25rem;
+      background: var(--color-text);
+      margin: 0.5rem 0 1rem;
+    }
+
+    .tagline {
+      color: var(--color-text-bland);
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.1rem;
+      white-space: nowrap;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.5rem 1rem;
+      place-items: center;
+
+      .start {
+        color: var(--color-text-bland);
+        font-weight: 600;
+        padding: 0.3rem 1rem;
+        border: 0.2rem solid var(--color-text-bland);
+        border-radius: 2rem;
+
+        svg {
+          stroke-width: 0.1rem;
+        }
+      }
+
+      .bili {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #f25d8e;
+        border-radius: 0.3rem;
+        padding: 0.2rem 0.5rem;
+        text-decoration: underline;
+
+        &:hover {
+          background: #f25d8e22;
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      align-items: center;
+      gap: 0.5rem;
+
+      .text {
+        text-align: center;
+        font-size: 1.5rem;
+      }
+
+      .name {
+        text-align: center;
+        font-size: 2rem;
+      }
+
+      hr {
+        width: 100%;
+        height: 0.2rem;
+        margin: 0.2rem 0 0.3rem;
+      }
+
+      .tagline {
+        font-size: 1rem;
+        letter-spacing: 0;
+      }
+
+      .actions {
+        flex-direction: column;
+
+        .start {
+          color: var(--color-text-bland);
+          font-weight: 600;
+          padding: 0.3rem 1rem;
+          border: 0.2rem solid var(--color-text-bland);
+          border-radius: 2rem;
+        }
+
+        .bili {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
+  .image {
+    .shadow {
+      margin: 5%;
+      position: relative;
+      /* z-index: -1;
+				animation: 120s linear infinite normal forwards running rotate;
+				@keyframes rotate {
+				    from {
+				        transform: rotate(0);
+				    }
+				    to {
+				        transform: rotate(360deg);
+				    }
+				} */
+
+      &::before {
+        content: '';
+        z-index: -1;
+        position: absolute;
+        width: 110%;
+        height: 110%;
+        border-radius: 50%;
+        background: conic-gradient(
+          from 0deg,
+          var(--color-3-mute) 0deg 80deg,
+          var(--color-2-mute) 80deg 110deg,
+          var(--color-1-mute) 110deg 170deg,
+          var(--color-2-mute) 170deg 245deg,
+          var(--color-3-mute) 245deg 315deg,
+          var(--color-2-mute) 315deg 335deg,
+          var(--color-3-mute) 335deg 360deg
+        );
+        animation: 2s linear infinite alternate both running breath;
+      }
+
+      img {
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .logo {
+      width: 50%;
+      height: auto;
+    }
+  }
+
+  @keyframes breath {
+    from {
+      filter: blur(1.5rem);
+    }
+    to {
+      filter: blur(3rem);
+    }
+  }
+</style>

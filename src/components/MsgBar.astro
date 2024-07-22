@@ -1,0 +1,71 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+interface Props extends HTMLAttributes<'div'> {
+  msg: string
+  btn?: {
+    url: string
+    text: string
+  }
+}
+
+const { msg, btn, ...props } = Astro.props
+---
+
+<div {...props}>
+  <svg viewBox="0 0 16 16">
+    <path
+      d="M2 6.77l12.33-3.43.67.53v8.6l-.67.53-6.089-1.595a2.16 2.16 0 1 1-4.178-1.095L2 9.77l-.42-.53V7.3L2 6.77zm3.006 3.787a1.13 1.13 0 0 0-.04.242 1.17 1.17 0 0 0 2.288.347l-2.248-.589zM2.58 8.82L14 11.83V4.5L2.58 7.72v1.1z"
+    ></path>
+  </svg>
+  <span>{msg}</span>
+  {
+    btn && (
+      <a target="_blank" rel="noopener noreferrer" href={btn.url}>
+        {btn.text}
+      </a>
+    )
+  }
+</div>
+
+<style>
+  div {
+    background: var(--color-background-transparent);
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.5rem;
+
+    display: flex;
+    justify-content: space-between;
+    place-items: center;
+    column-gap: 0.5rem;
+
+    svg {
+      flex: 0 0 auto;
+      font-size: 1.25rem;
+      stroke-width: 0.7;
+    }
+
+    span {
+      flex: 1 1 auto;
+      font-size: 1rem;
+      font-weight: 500;
+      line-break: loose;
+      overflow-wrap: break-word;
+    }
+
+    a {
+      flex: 0 0 auto;
+      font-size: 0.9rem;
+      font-weight: 400;
+      padding: 0.15rem 0.3rem;
+      background: var(--color-background-transparent);
+      border-radius: 0.3rem;
+      border: 0.1rem solid var(--color-border);
+
+      &:hover {
+        background: var(--color-background-soft);
+        border-color: var(--color-border-hover);
+      }
+    }
+  }
+</style>

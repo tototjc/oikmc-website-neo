@@ -1,0 +1,13 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": ["src/**/*", "./*.config.*"],
+  "exclude": ["src/lib/auth/*.provider.*"],
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}

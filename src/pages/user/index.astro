@@ -1,0 +1,68 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+
+import { SignOut } from 'auth-astro/components'
+
+const { session } = Astro.locals
+---
+
+<BaseLayout>
+  <section class="box-mold">
+    <img src={session?.user?.image} class="avatar" alt="avatar" />
+    <div class="name">{session?.user?.name}</div>
+    <div class="email">{session?.user?.email}</div>
+    <SignOut class="btn icon-text-align">
+      <span>拜拜喵</span>
+      <svg viewBox="0 0 16 16">
+        <path
+          d="M11.02 3.77v1.56l1-.99V2.5l-.5-.5h-9l-.5.5v.486L2 3v10.29l.36.46 5 1.72L8 15v-1h3.52l.5-.5v-1.81l-1-1V13H8V4.71l-.33-.46L4.036 3h6.984v.77zM7 14.28l-4-1.34V3.72l4 1.34v9.22zm6.52-5.8H8.55v-1h4.93l-1.6-1.6.71-.7 2.47 2.46v.71l-2.49 2.48-.7-.7 1.65-1.65z"
+        ></path>
+      </svg>
+    </SignOut>
+  </section>
+  <section class="box-mold">
+    <p style="font-size:1.1rem; font-weight: 600; color: #666;">更多功能正在绝赞开发中！</p>
+  </section>
+</BaseLayout>
+
+<style>
+  section {
+    margin: 1rem 0;
+    place-items: center;
+  }
+
+  .avatar {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .name {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .email {
+    color: var(--color-text-bland);
+    font-weight: 500;
+    font-size: 1rem;
+  }
+
+  .btn {
+    margin: 1rem 0;
+    cursor: pointer;
+    padding: 0.2rem 0.7rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border: 0.1rem solid var(--color-text);
+    border-radius: 0.5rem;
+    transition: background 0.3s ease-in-out;
+
+    svg {
+      stroke-width: 0.01rem;
+    }
+
+    &:hover {
+      background: var(--color-background-transparent);
+    }
+  }
+</style>

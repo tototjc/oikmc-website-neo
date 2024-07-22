@@ -1,0 +1,94 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+---
+
+<BaseLayout>
+  <section id="intro" class="box-mold">
+    <h1 class="title">关于我们</h1>
+    <article class="content">
+      <p>Oikmc的网站</p>
+    </article>
+  </section>
+  <section id="credits" class="box-mold">
+    <h6>借物表</h6>
+    <ul>
+      <li>
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/withastro/astro">Astro</a>
+      </li>
+      <li>
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/vuejs/core">Vue.js</a>
+      </li>
+      <li>
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/nextauthjs/next-auth">Auth.js</a>
+      </li>
+    </ul>
+    <p>Our website is proudly powered by the open source projects mentioned above.</p>
+  </section>
+  <section id="statement" class="box-mold">
+    <p>
+      Contents of this website are Copyright 2023-Present by
+      <a target="_blank" rel="noopener noreferrer" href="/">Oikmc</a>.
+    </p>
+    <p>
+      Program of this website was made with love by
+      <a target="_blank" rel="author noopener noreferrer" href="https://github.com/tototjc">Gaaising Tam</a>. Program
+      available under a
+      <a target="_blank" rel="license noopener noreferrer" href="https://www.gnu.org/licenses/gpl-3.0"
+        >GPL-3.0 License</a
+      >.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  section {
+    margin: 1rem 0;
+  }
+
+  #intro {
+    .title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      text-align: center;
+      quotes: '「' '」';
+
+      &::before {
+        content: open-quote;
+      }
+
+      &::after {
+        content: close-quote;
+      }
+    }
+
+    .content {
+      font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 1.2rlh;
+      text-indent: 2em;
+      letter-spacing: 0.1em;
+    }
+  }
+
+  #credits {
+    h6 {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  #statement {
+    gap: 0.2rem;
+    place-items: center;
+    font-size: 0.8rem;
+    font-weight: 400;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+</style>

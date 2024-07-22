@@ -1,0 +1,44 @@
+---
+const { session } = Astro.locals
+
+const { ...props } = Astro.props
+---
+
+{
+  session?.user ? (
+    <a href="/user" {...props}>
+      <span>Dashboard</span>
+    </a>
+  ) : (
+    <a href="/login" {...props}>
+      <span>Login</span>
+    </a>
+  )
+}
+
+<style>
+  a {
+    display: flex;
+    place-items: center;
+    color: var(--color-text);
+    border: 0.12rem solid var(--color-text);
+    border-radius: 1rem;
+    padding: 0.2rem;
+    overflow: hidden;
+
+    img {
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 50%;
+    }
+
+    span {
+      line-height: 1rem;
+      margin: 0 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+  }
+</style>

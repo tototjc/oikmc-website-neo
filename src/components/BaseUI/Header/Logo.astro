@@ -1,0 +1,42 @@
+---
+import type { ImageMetadata } from 'astro'
+import type { HTMLAttributes } from 'astro/types'
+import { Image } from 'astro:assets'
+
+export type LogoConf = {
+  text: string
+  img: Promise<{ default: ImageMetadata }>
+  href: string
+}
+
+export interface Props extends HTMLAttributes<'a'> {
+  logo: LogoConf
+}
+
+const {
+  logo: { text, img, href },
+  class: className,
+  ...props
+} = Astro.props
+---
+
+<a class:list={[className, 'icon-text-align']} href={href} {...props}>
+  <Image src={img} alt="logo" />
+  <span>{text}</span>
+</a>
+
+<style>
+  a {
+    container-type: inline-size;
+    font-size: clamp(0.8rem, 5cqw, 1.3rem);
+
+    img {
+      height: 1.2em;
+      width: auto;
+    }
+
+    span {
+      font-weight: 600;
+    }
+  }
+</style>

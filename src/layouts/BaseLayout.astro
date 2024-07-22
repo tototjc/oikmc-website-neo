@@ -1,0 +1,36 @@
+---
+import { ViewTransitions } from 'astro:transitions'
+
+import { BaseHead, Header, Footer } from '@/components/BaseUI'
+import User from '@/components/User.astro'
+
+interface Props {
+  title?: string
+  description?: string
+  image?: string
+}
+
+const { props, currentLocale } = Astro
+---
+
+<!doctype html>
+<html lang={currentLocale}>
+  <head>
+    <BaseHead {...props} />
+    <ViewTransitions />
+  </head>
+  <body>
+    <Header>
+      <User slot="after-header" />
+    </Header>
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <style>
+      main {
+        margin: 0 auto;
+      }
+    </style>
+  </body>
+</html>

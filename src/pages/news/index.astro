@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import MsgBar from '@/components/MsgBar.astro'
+import FormattedDate from '@/components/FormattedDate.astro'
+
+const news = (await getCollection('news')).sort(
+  (a, b) => (a.data.pubDate ?? 0).valueOf() - (b.data.pubDate ?? 0).valueOf(),
+)
+
+const msg1 = {
+  msg: '公告栏消息不能保证时效性，请加入我们的KOOK频道以获得最新内容。',
+  btn: {
+    text: '点击加入',
+    url: '#',
+  },
+}
+
+const msg2 = {
+  msg: '公告栏功能正在绝赞开发中，目前暂无法查看',
+}
+---
+
+<BaseLayout>
+  <MsgBar {...msg1} />
+  <MsgBar {...msg2} />
+  <ul>
+    {
+      news.map(post => (
+        <li>
+          <a href={`/news/${post.slug}/`}>
+            <h4>{post.data.title}</h4>
+            {post.data.pubDate && <FormattedDate date={post.data.pubDate} />}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
+
+<style>
+  li {
+    padding: 0.6rem 0.8rem;
+
+    &:not(:last-of-type) {
+      border-bottom: 0.1rem solid #000;
+    }
+  }
+</style>

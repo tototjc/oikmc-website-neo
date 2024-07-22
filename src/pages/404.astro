@@ -1,0 +1,78 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+---
+
+<BaseLayout>
+  <div class="err">
+    <h2>404</h2>
+    <div><a href="/">返回主页</a></div>
+    <p>未知的路由：<code>{Astro.url.pathname}</code>，请检查！</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .err {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    place-items: center;
+    gap: 1rem;
+
+    h2 {
+      font-size: 5rem;
+      font-weight: 600;
+      text-indent: 1rem;
+      letter-spacing: 1rem;
+      color: var(--color-text-bland);
+    }
+
+    a {
+      color: var(--color-text-bland);
+      font-weight: 600;
+      padding: 0.3rem 0.5rem;
+      display: block;
+      position: relative;
+      transition: background 0.3s ease-in-out;
+      border-radius: 0.15rem;
+
+      &::after {
+        content: '';
+        background: var(--color-text-bland);
+        display: block;
+        position: absolute;
+        height: 0.15rem;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        border-radius: 0.15rem;
+      }
+
+      &:hover {
+        background: var(--color-background-soft);
+      }
+    }
+
+    p {
+      display: flex;
+      place-content: center;
+      place-items: center;
+      flex-flow: row wrap;
+      font-size: 1.2rem;
+      font-weight: 300;
+      text-indent: 0.2rem;
+      letter-spacing: 0.2rem;
+      margin: 3rem auto;
+
+      code {
+        overflow-wrap: anywhere;
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 0;
+        background: var(--color-background-soft);
+        padding: 0.1rem 0.5rem;
+        border-radius: 0.25rem;
+      }
+    }
+  }
+</style>
