@@ -46,7 +46,7 @@
     "nanostores": "^0.10.3",
     "postcss-preset-env": "^9.6.0",
     "typescript": "^5.5.3",
-    "vite-plugin-pwa": "^0.20.0",
+    "vite-plugin-pwa": "^0.20.1",
     "vue": "^3.4.33"
   },
   "devDependencies": {
