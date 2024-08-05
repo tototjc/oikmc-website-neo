@@ -47,7 +47,7 @@
     "postcss-preset-env": "^9.6.0",
     "typescript": "^5.5.3",
     "vite-plugin-pwa": "^0.20.0",
-    "vue": "^3.4.33"
+    "vue": "^3.4.35"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
